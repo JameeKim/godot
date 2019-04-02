@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+
+Import("env")
+Import("env_modules")
+
+sources = Glob("*.cpp")
+
+mod_env = env_modules.Clone()
+mod_env.Append(CXXFLAGS=["-std=c++11"])
+
+if env["target"] == "debug":
+    mod_env.Append(CXXFLAGS=["-fPIC"])
+    mod_env["LIBS"] = []
+    lib = mod_env.SharedLibrary(target="#bin/json", source=sources)
+    lib_shim = lib[0].name.rsplit(".", 1)[0]
+    env.Append(LIBS=[lib_shim])
+    env.Append(LIBPATH=["#bin"])
+else:
+    mod_env.add_source_files(env.modules_sources, sources)
