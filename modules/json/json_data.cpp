@@ -1,6 +1,11 @@
 #include "json_data.h"
 
 #include "core/os/file_access.h"
+#include "core/class_db.h"
+
+void JsonData::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("to_string"), &JsonData::to_string);
+}
 
 JsonData::JsonData() {
 	data = Dictionary();

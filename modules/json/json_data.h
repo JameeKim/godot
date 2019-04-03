@@ -11,6 +11,9 @@ class JsonData : public Resource {
 private:
 	Dictionary data;
 
+protected:
+	static void _bind_methods();
+
 public:
 	JsonData();
 	~JsonData();
